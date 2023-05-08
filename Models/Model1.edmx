@@ -1,0 +1,618 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MandhegParkingSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="phone_number" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="address" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="date_of_birth" Type="date" Nullable="false" />
+          <Property Name="gender" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="created_at" Type="datetime" Nullable="false" />
+          <Property Name="last_updated_at" Type="datetime" />
+          <Property Name="deleted_at" Type="datetime" />
+        </EntityType>
+        <EntityType Name="HourlyRates">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="membership_id" Type="int" Nullable="false" />
+          <Property Name="vehicle_type_id" Type="int" Nullable="false" />
+          <Property Name="value" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="created_at" Type="datetime" Nullable="false" />
+          <Property Name="last_updated_at" Type="datetime" />
+          <Property Name="deleted_at" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="membership_id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="phone_number" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="address" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="date_of_birth" Type="date" Nullable="false" />
+          <Property Name="gender" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="created_at" Type="datetime" Nullable="false" />
+          <Property Name="last_updated_at" Type="datetime" />
+          <Property Name="deleted_at" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Membership">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="created_at" Type="datetime" Nullable="false" />
+          <Property Name="last_updated_at" Type="datetime" />
+          <Property Name="deleted_at" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ParkingData">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="license_plate" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="vehicle_id" Type="int" />
+          <Property Name="employee_id" Type="int" Nullable="false" />
+          <Property Name="hourly_rates_id" Type="int" Nullable="false" />
+          <Property Name="datetime_in" Type="datetime" Nullable="false" />
+          <Property Name="datetime_out" Type="datetime" Nullable="false" />
+          <Property Name="amount_to_pay" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="created_at" Type="datetime" Nullable="false" />
+          <Property Name="last_updated_at" Type="datetime" />
+          <Property Name="deleted_at" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Vehicle">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="vehicle_type_id" Type="int" Nullable="false" />
+          <Property Name="member_id" Type="int" Nullable="false" />
+          <Property Name="license_plate" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="notes" Type="varchar" MaxLength="200" />
+          <Property Name="created_at" Type="datetime" Nullable="false" />
+          <Property Name="last_updated_at" Type="datetime" />
+          <Property Name="deleted_at" Type="datetime" />
+        </EntityType>
+        <EntityType Name="VehicleType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="created_at" Type="datetime" Nullable="false" />
+          <Property Name="last_updated_at" Type="datetime" />
+          <Property Name="deleted_at" Type="datetime" />
+        </EntityType>
+        <Association Name="FK__HourlyRat__membe__2F10007B">
+          <End Role="Membership" Type="Self.Membership" Multiplicity="1" />
+          <End Role="HourlyRates" Type="Self.HourlyRates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Membership">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="HourlyRates">
+              <PropertyRef Name="membership_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HourlyRat__vehic__300424B4">
+          <End Role="VehicleType" Type="Self.VehicleType" Multiplicity="1" />
+          <End Role="HourlyRates" Type="Self.HourlyRates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VehicleType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="HourlyRates">
+              <PropertyRef Name="vehicle_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Member__membersh__34C8D9D1">
+          <End Role="Membership" Type="Self.Membership" Multiplicity="1" />
+          <End Role="Member" Type="Self.Member" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Membership">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Member">
+              <PropertyRef Name="membership_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ParkingDa__emplo__3F466844">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="ParkingData" Type="Self.ParkingData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ParkingData">
+              <PropertyRef Name="employee_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ParkingDa__hourl__403A8C7D">
+          <End Role="HourlyRates" Type="Self.HourlyRates" Multiplicity="1" />
+          <End Role="ParkingData" Type="Self.ParkingData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HourlyRates">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ParkingData">
+              <PropertyRef Name="hourly_rates_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ParkingDa__vehic__3E52440B">
+          <End Role="Vehicle" Type="Self.Vehicle" Multiplicity="0..1" />
+          <End Role="ParkingData" Type="Self.ParkingData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicle">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ParkingData">
+              <PropertyRef Name="vehicle_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vehicle__member___3A81B327">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="Vehicle" Type="Self.Vehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Vehicle">
+              <PropertyRef Name="member_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vehicle__vehicle__398D8EEE">
+          <End Role="VehicleType" Type="Self.VehicleType" Multiplicity="1" />
+          <End Role="Vehicle" Type="Self.Vehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VehicleType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Vehicle">
+              <PropertyRef Name="vehicle_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MandhegParkingSystemModelStoreContainer">
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HourlyRates" EntityType="Self.HourlyRates" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Member" EntityType="Self.Member" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Membership" EntityType="Self.Membership" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ParkingData" EntityType="Self.ParkingData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vehicle" EntityType="Self.Vehicle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VehicleType" EntityType="Self.VehicleType" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__HourlyRat__membe__2F10007B" Association="Self.FK__HourlyRat__membe__2F10007B">
+            <End Role="Membership" EntitySet="Membership" />
+            <End Role="HourlyRates" EntitySet="HourlyRates" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HourlyRat__vehic__300424B4" Association="Self.FK__HourlyRat__vehic__300424B4">
+            <End Role="VehicleType" EntitySet="VehicleType" />
+            <End Role="HourlyRates" EntitySet="HourlyRates" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Member__membersh__34C8D9D1" Association="Self.FK__Member__membersh__34C8D9D1">
+            <End Role="Membership" EntitySet="Membership" />
+            <End Role="Member" EntitySet="Member" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ParkingDa__emplo__3F466844" Association="Self.FK__ParkingDa__emplo__3F466844">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="ParkingData" EntitySet="ParkingData" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ParkingDa__hourl__403A8C7D" Association="Self.FK__ParkingDa__hourl__403A8C7D">
+            <End Role="HourlyRates" EntitySet="HourlyRates" />
+            <End Role="ParkingData" EntitySet="ParkingData" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ParkingDa__vehic__3E52440B" Association="Self.FK__ParkingDa__vehic__3E52440B">
+            <End Role="Vehicle" EntitySet="Vehicle" />
+            <End Role="ParkingData" EntitySet="ParkingData" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vehicle__member___3A81B327" Association="Self.FK__Vehicle__member___3A81B327">
+            <End Role="Member" EntitySet="Member" />
+            <End Role="Vehicle" EntitySet="Vehicle" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vehicle__vehicle__398D8EEE" Association="Self.FK__Vehicle__vehicle__398D8EEE">
+            <End Role="VehicleType" EntitySet="VehicleType" />
+            <End Role="Vehicle" EntitySet="Vehicle" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MandhegParkingSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="phone_number" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="date_of_birth" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="created_at" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="last_updated_at" Type="DateTime" Precision="3" />
+          <Property Name="deleted_at" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="ParkingDatas" Relationship="Self.FK__ParkingDa__emplo__3F466844" FromRole="Employee" ToRole="ParkingData" />
+        </EntityType>
+        <EntityType Name="HourlyRate">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="membership_id" Type="Int32" Nullable="false" />
+          <Property Name="vehicle_type_id" Type="Int32" Nullable="false" />
+          <Property Name="value" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="created_at" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="last_updated_at" Type="DateTime" Precision="3" />
+          <Property Name="deleted_at" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Membership" Relationship="Self.FK__HourlyRat__membe__2F10007B" FromRole="HourlyRates" ToRole="Membership" />
+          <NavigationProperty Name="VehicleType" Relationship="Self.FK__HourlyRat__vehic__300424B4" FromRole="HourlyRates" ToRole="VehicleType" />
+          <NavigationProperty Name="ParkingDatas" Relationship="Self.FK__ParkingDa__hourl__403A8C7D" FromRole="HourlyRates" ToRole="ParkingData" />
+        </EntityType>
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="membership_id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="phone_number" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="date_of_birth" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="created_at" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="last_updated_at" Type="DateTime" Precision="3" />
+          <Property Name="deleted_at" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Membership" Relationship="Self.FK__Member__membersh__34C8D9D1" FromRole="Member" ToRole="Membership" />
+          <NavigationProperty Name="Vehicles" Relationship="Self.FK__Vehicle__member___3A81B327" FromRole="Member" ToRole="Vehicle" />
+        </EntityType>
+        <EntityType Name="Membership">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="created_at" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="last_updated_at" Type="DateTime" Precision="3" />
+          <Property Name="deleted_at" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="HourlyRates" Relationship="Self.FK__HourlyRat__membe__2F10007B" FromRole="Membership" ToRole="HourlyRates" />
+          <NavigationProperty Name="Members" Relationship="Self.FK__Member__membersh__34C8D9D1" FromRole="Membership" ToRole="Member" />
+        </EntityType>
+        <EntityType Name="ParkingData">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="license_plate" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="vehicle_id" Type="Int32" />
+          <Property Name="employee_id" Type="Int32" Nullable="false" />
+          <Property Name="hourly_rates_id" Type="Int32" Nullable="false" />
+          <Property Name="datetime_in" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="datetime_out" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="amount_to_pay" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="created_at" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="last_updated_at" Type="DateTime" Precision="3" />
+          <Property Name="deleted_at" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK__ParkingDa__emplo__3F466844" FromRole="ParkingData" ToRole="Employee" />
+          <NavigationProperty Name="HourlyRate" Relationship="Self.FK__ParkingDa__hourl__403A8C7D" FromRole="ParkingData" ToRole="HourlyRates" />
+          <NavigationProperty Name="Vehicle" Relationship="Self.FK__ParkingDa__vehic__3E52440B" FromRole="ParkingData" ToRole="Vehicle" />
+        </EntityType>
+        <EntityType Name="Vehicle">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="vehicle_type_id" Type="Int32" Nullable="false" />
+          <Property Name="member_id" Type="Int32" Nullable="false" />
+          <Property Name="license_plate" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="notes" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="created_at" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="last_updated_at" Type="DateTime" Precision="3" />
+          <Property Name="deleted_at" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Member" Relationship="Self.FK__Vehicle__member___3A81B327" FromRole="Vehicle" ToRole="Member" />
+          <NavigationProperty Name="ParkingDatas" Relationship="Self.FK__ParkingDa__vehic__3E52440B" FromRole="Vehicle" ToRole="ParkingData" />
+          <NavigationProperty Name="VehicleType" Relationship="Self.FK__Vehicle__vehicle__398D8EEE" FromRole="Vehicle" ToRole="VehicleType" />
+        </EntityType>
+        <EntityType Name="VehicleType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="created_at" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="last_updated_at" Type="DateTime" Precision="3" />
+          <Property Name="deleted_at" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="HourlyRates" Relationship="Self.FK__HourlyRat__vehic__300424B4" FromRole="VehicleType" ToRole="HourlyRates" />
+          <NavigationProperty Name="Vehicles" Relationship="Self.FK__Vehicle__vehicle__398D8EEE" FromRole="VehicleType" ToRole="Vehicle" />
+        </EntityType>
+        <Association Name="FK__ParkingDa__emplo__3F466844">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="ParkingData" Type="Self.ParkingData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ParkingData">
+              <PropertyRef Name="employee_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HourlyRat__membe__2F10007B">
+          <End Role="Membership" Type="Self.Membership" Multiplicity="1" />
+          <End Role="HourlyRates" Type="Self.HourlyRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Membership">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="HourlyRates">
+              <PropertyRef Name="membership_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HourlyRat__vehic__300424B4">
+          <End Role="VehicleType" Type="Self.VehicleType" Multiplicity="1" />
+          <End Role="HourlyRates" Type="Self.HourlyRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VehicleType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="HourlyRates">
+              <PropertyRef Name="vehicle_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ParkingDa__hourl__403A8C7D">
+          <End Role="HourlyRates" Type="Self.HourlyRate" Multiplicity="1" />
+          <End Role="ParkingData" Type="Self.ParkingData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HourlyRates">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ParkingData">
+              <PropertyRef Name="hourly_rates_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Member__membersh__34C8D9D1">
+          <End Role="Membership" Type="Self.Membership" Multiplicity="1" />
+          <End Role="Member" Type="Self.Member" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Membership">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Member">
+              <PropertyRef Name="membership_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vehicle__member___3A81B327">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="Vehicle" Type="Self.Vehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Vehicle">
+              <PropertyRef Name="member_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ParkingDa__vehic__3E52440B">
+          <End Role="Vehicle" Type="Self.Vehicle" Multiplicity="0..1" />
+          <End Role="ParkingData" Type="Self.ParkingData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicle">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ParkingData">
+              <PropertyRef Name="vehicle_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vehicle__vehicle__398D8EEE">
+          <End Role="VehicleType" Type="Self.VehicleType" Multiplicity="1" />
+          <End Role="Vehicle" Type="Self.Vehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VehicleType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Vehicle">
+              <PropertyRef Name="vehicle_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MandhegParkingSystemEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="HourlyRates" EntityType="Self.HourlyRate" />
+          <EntitySet Name="Members" EntityType="Self.Member" />
+          <EntitySet Name="Memberships" EntityType="Self.Membership" />
+          <EntitySet Name="ParkingDatas" EntityType="Self.ParkingData" />
+          <EntitySet Name="Vehicles" EntityType="Self.Vehicle" />
+          <EntitySet Name="VehicleTypes" EntityType="Self.VehicleType" />
+          <AssociationSet Name="FK__ParkingDa__emplo__3F466844" Association="Self.FK__ParkingDa__emplo__3F466844">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="ParkingData" EntitySet="ParkingDatas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HourlyRat__membe__2F10007B" Association="Self.FK__HourlyRat__membe__2F10007B">
+            <End Role="Membership" EntitySet="Memberships" />
+            <End Role="HourlyRates" EntitySet="HourlyRates" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HourlyRat__vehic__300424B4" Association="Self.FK__HourlyRat__vehic__300424B4">
+            <End Role="VehicleType" EntitySet="VehicleTypes" />
+            <End Role="HourlyRates" EntitySet="HourlyRates" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ParkingDa__hourl__403A8C7D" Association="Self.FK__ParkingDa__hourl__403A8C7D">
+            <End Role="HourlyRates" EntitySet="HourlyRates" />
+            <End Role="ParkingData" EntitySet="ParkingDatas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Member__membersh__34C8D9D1" Association="Self.FK__Member__membersh__34C8D9D1">
+            <End Role="Membership" EntitySet="Memberships" />
+            <End Role="Member" EntitySet="Members" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vehicle__member___3A81B327" Association="Self.FK__Vehicle__member___3A81B327">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="Vehicle" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ParkingDa__vehic__3E52440B" Association="Self.FK__ParkingDa__vehic__3E52440B">
+            <End Role="Vehicle" EntitySet="Vehicles" />
+            <End Role="ParkingData" EntitySet="ParkingDatas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vehicle__vehicle__398D8EEE" Association="Self.FK__Vehicle__vehicle__398D8EEE">
+            <End Role="VehicleType" EntitySet="VehicleTypes" />
+            <End Role="Vehicle" EntitySet="Vehicles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MandhegParkingSystemModelStoreContainer" CdmEntityContainer="MandhegParkingSystemEntities">
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="MandhegParkingSystemModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="phone_number" ColumnName="phone_number" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="date_of_birth" ColumnName="date_of_birth" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="last_updated_at" ColumnName="last_updated_at" />
+                <ScalarProperty Name="deleted_at" ColumnName="deleted_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HourlyRates">
+            <EntityTypeMapping TypeName="MandhegParkingSystemModel.HourlyRate">
+              <MappingFragment StoreEntitySet="HourlyRates">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="membership_id" ColumnName="membership_id" />
+                <ScalarProperty Name="vehicle_type_id" ColumnName="vehicle_type_id" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="last_updated_at" ColumnName="last_updated_at" />
+                <ScalarProperty Name="deleted_at" ColumnName="deleted_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Members">
+            <EntityTypeMapping TypeName="MandhegParkingSystemModel.Member">
+              <MappingFragment StoreEntitySet="Member">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="membership_id" ColumnName="membership_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone_number" ColumnName="phone_number" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="date_of_birth" ColumnName="date_of_birth" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="last_updated_at" ColumnName="last_updated_at" />
+                <ScalarProperty Name="deleted_at" ColumnName="deleted_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Memberships">
+            <EntityTypeMapping TypeName="MandhegParkingSystemModel.Membership">
+              <MappingFragment StoreEntitySet="Membership">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="last_updated_at" ColumnName="last_updated_at" />
+                <ScalarProperty Name="deleted_at" ColumnName="deleted_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ParkingDatas">
+            <EntityTypeMapping TypeName="MandhegParkingSystemModel.ParkingData">
+              <MappingFragment StoreEntitySet="ParkingData">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="license_plate" ColumnName="license_plate" />
+                <ScalarProperty Name="vehicle_id" ColumnName="vehicle_id" />
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+                <ScalarProperty Name="hourly_rates_id" ColumnName="hourly_rates_id" />
+                <ScalarProperty Name="datetime_in" ColumnName="datetime_in" />
+                <ScalarProperty Name="datetime_out" ColumnName="datetime_out" />
+                <ScalarProperty Name="amount_to_pay" ColumnName="amount_to_pay" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="last_updated_at" ColumnName="last_updated_at" />
+                <ScalarProperty Name="deleted_at" ColumnName="deleted_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vehicles">
+            <EntityTypeMapping TypeName="MandhegParkingSystemModel.Vehicle">
+              <MappingFragment StoreEntitySet="Vehicle">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="vehicle_type_id" ColumnName="vehicle_type_id" />
+                <ScalarProperty Name="member_id" ColumnName="member_id" />
+                <ScalarProperty Name="license_plate" ColumnName="license_plate" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="last_updated_at" ColumnName="last_updated_at" />
+                <ScalarProperty Name="deleted_at" ColumnName="deleted_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VehicleTypes">
+            <EntityTypeMapping TypeName="MandhegParkingSystemModel.VehicleType">
+              <MappingFragment StoreEntitySet="VehicleType">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="last_updated_at" ColumnName="last_updated_at" />
+                <ScalarProperty Name="deleted_at" ColumnName="deleted_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
