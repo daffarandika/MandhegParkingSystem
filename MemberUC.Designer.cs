@@ -69,6 +69,7 @@
             this.memberDataGridView.Name = "memberDataGridView";
             this.memberDataGridView.Size = new System.Drawing.Size(748, 154);
             this.memberDataGridView.TabIndex = 1;
+            this.memberDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.memberDataGridView_CellClick);
             // 
             // membershipTypeLabel
             // 
@@ -224,6 +225,7 @@
             this.btnUpdate.TabIndex = 19;
             this.btnUpdate.Text = "UPDATE";
             this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // btnDelete
             // 
@@ -235,6 +237,7 @@
             this.btnDelete.TabIndex = 20;
             this.btnDelete.Text = "DELETE";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnSubmit
             // 
