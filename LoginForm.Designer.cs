@@ -48,13 +48,6 @@
             idLabel.TabIndex = 2;
             idLabel.Text = "Employee ID:";
             // 
-            // idTextBox
-            // 
-            this.idTextBox.Location = new System.Drawing.Point(137, 101);
-            this.idTextBox.Name = "idTextBox";
-            this.idTextBox.Size = new System.Drawing.Size(266, 20);
-            this.idTextBox.TabIndex = 3;
-            // 
             // passwordLabel
             // 
             passwordLabel.AutoSize = true;
@@ -63,6 +56,13 @@
             passwordLabel.Size = new System.Drawing.Size(56, 13);
             passwordLabel.TabIndex = 4;
             passwordLabel.Text = "Password:";
+            // 
+            // idTextBox
+            // 
+            this.idTextBox.Location = new System.Drawing.Point(137, 101);
+            this.idTextBox.Name = "idTextBox";
+            this.idTextBox.Size = new System.Drawing.Size(266, 20);
+            this.idTextBox.TabIndex = 3;
             // 
             // passwordTextBox
             // 
@@ -116,7 +116,7 @@
             this.Controls.Add(this.idTextBox);
             this.Name = "LoginForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "Login Form";
             this.Load += new System.EventHandler(this.LoginForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

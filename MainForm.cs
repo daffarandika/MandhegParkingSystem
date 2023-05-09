@@ -24,12 +24,18 @@ namespace MandhegParkingSystem
 
         private void updateTime(object sender, EventArgs e)
         {
-            label2.Text = DateTime.Now.ToString("dddd, dd MM yyyy HH:mm:ss");
+            label2.Text = DateTime.Now.ToString("dddd, dd MMM yyyy HH:mm:ss");
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            label1.Text = Vars.employee.name;
+            label1.Text = $"Hello, {Vars.employee.name}";
+        }
+
+        private void btnMember_Click(object sender, EventArgs e)
+        {
+            panel1.Controls.Clear();
+            panel1.Controls.Add(new MemberUC());
         }
     }
 }
