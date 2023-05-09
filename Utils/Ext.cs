@@ -17,7 +17,11 @@ namespace MandhegParkingSystem.Utils
             dgv.RowHeadersVisible=false;
             foreach (DataGridViewColumn col in dgv.Columns)
             {
-                col.HeaderText.Replace('_', ' ');
+                col.HeaderText = col.HeaderText.Replace('_', ' ');
+                if (col.HeaderText.ToLower().Contains("date"))
+                {
+                    col.DefaultCellStyle.Format = "dd MMM yyyy";
+                }
             }
         }
         public static void Setup(this ComboBox cmb)

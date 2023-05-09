@@ -62,6 +62,8 @@
             // 
             // memberDataGridView
             // 
+            this.memberDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.memberDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.memberDataGridView.Location = new System.Drawing.Point(3, 3);
             this.memberDataGridView.Name = "memberDataGridView";
@@ -269,6 +271,8 @@
             // 
             // rbMale
             // 
+            this.rbMale.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.rbMale.AutoSize = true;
             this.rbMale.Location = new System.Drawing.Point(161, 337);
             this.rbMale.Name = "rbMale";
@@ -280,6 +284,8 @@
             // 
             // rbFemale
             // 
+            this.rbFemale.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.rbFemale.AutoSize = true;
             this.rbFemale.Location = new System.Drawing.Point(276, 337);
             this.rbFemale.Name = "rbFemale";
