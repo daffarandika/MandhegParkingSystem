@@ -47,7 +47,7 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnSubmit = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.label_time = new System.Windows.Forms.Label();
             this.rbMale = new System.Windows.Forms.RadioButton();
             this.rbFemale = new System.Windows.Forms.RadioButton();
             membershipTypeLabel = new System.Windows.Forms.Label();
@@ -60,17 +60,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.memberDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
-            // memberDataGridView
-            // 
-            this.memberDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.memberDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.memberDataGridView.Location = new System.Drawing.Point(3, 3);
-            this.memberDataGridView.Name = "memberDataGridView";
-            this.memberDataGridView.Size = new System.Drawing.Size(748, 154);
-            this.memberDataGridView.TabIndex = 1;
-            this.memberDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.memberDataGridView_CellClick);
-            // 
             // membershipTypeLabel
             // 
             membershipTypeLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -81,16 +70,6 @@
             membershipTypeLabel.Size = new System.Drawing.Size(89, 13);
             membershipTypeLabel.TabIndex = 4;
             membershipTypeLabel.Text = "membership type:";
-            // 
-            // membership_typeComboBox
-            // 
-            this.membership_typeComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.membership_typeComboBox.FormattingEnabled = true;
-            this.membership_typeComboBox.Location = new System.Drawing.Point(161, 204);
-            this.membership_typeComboBox.Name = "membership_typeComboBox";
-            this.membership_typeComboBox.Size = new System.Drawing.Size(200, 21);
-            this.membership_typeComboBox.TabIndex = 5;
             // 
             // nameLabel
             // 
@@ -103,15 +82,6 @@
             nameLabel.TabIndex = 6;
             nameLabel.Text = "name:";
             // 
-            // nameTextBox
-            // 
-            this.nameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.nameTextBox.Location = new System.Drawing.Point(161, 178);
-            this.nameTextBox.Name = "nameTextBox";
-            this.nameTextBox.Size = new System.Drawing.Size(200, 20);
-            this.nameTextBox.TabIndex = 7;
-            // 
             // emailLabel
             // 
             emailLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -122,15 +92,6 @@
             emailLabel.Size = new System.Drawing.Size(34, 13);
             emailLabel.TabIndex = 8;
             emailLabel.Text = "email:";
-            // 
-            // emailTextBox
-            // 
-            this.emailTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.emailTextBox.Location = new System.Drawing.Point(161, 232);
-            this.emailTextBox.Name = "emailTextBox";
-            this.emailTextBox.Size = new System.Drawing.Size(200, 20);
-            this.emailTextBox.TabIndex = 9;
             // 
             // phone_numberLabel
             // 
@@ -143,15 +104,6 @@
             phone_numberLabel.TabIndex = 10;
             phone_numberLabel.Text = "phone number:";
             // 
-            // phone_numberTextBox
-            // 
-            this.phone_numberTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.phone_numberTextBox.Location = new System.Drawing.Point(161, 258);
-            this.phone_numberTextBox.Name = "phone_numberTextBox";
-            this.phone_numberTextBox.Size = new System.Drawing.Size(200, 20);
-            this.phone_numberTextBox.TabIndex = 11;
-            // 
             // addressLabel
             // 
             addressLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -162,15 +114,6 @@
             addressLabel.Size = new System.Drawing.Size(47, 13);
             addressLabel.TabIndex = 12;
             addressLabel.Text = "address:";
-            // 
-            // addressTextBox
-            // 
-            this.addressTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.addressTextBox.Location = new System.Drawing.Point(161, 284);
-            this.addressTextBox.Name = "addressTextBox";
-            this.addressTextBox.Size = new System.Drawing.Size(200, 20);
-            this.addressTextBox.TabIndex = 13;
             // 
             // date_of_birthLabel
             // 
@@ -183,15 +126,6 @@
             date_of_birthLabel.TabIndex = 14;
             date_of_birthLabel.Text = "date of birth:";
             // 
-            // date_of_birthDateTimePicker
-            // 
-            this.date_of_birthDateTimePicker.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.date_of_birthDateTimePicker.Location = new System.Drawing.Point(161, 310);
-            this.date_of_birthDateTimePicker.Name = "date_of_birthDateTimePicker";
-            this.date_of_birthDateTimePicker.Size = new System.Drawing.Size(200, 20);
-            this.date_of_birthDateTimePicker.TabIndex = 15;
-            // 
             // genderLabel
             // 
             genderLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -202,6 +136,72 @@
             genderLabel.Size = new System.Drawing.Size(43, 13);
             genderLabel.TabIndex = 16;
             genderLabel.Text = "gender:";
+            // 
+            // memberDataGridView
+            // 
+            this.memberDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.memberDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.memberDataGridView.Location = new System.Drawing.Point(3, 3);
+            this.memberDataGridView.Name = "memberDataGridView";
+            this.memberDataGridView.Size = new System.Drawing.Size(748, 154);
+            this.memberDataGridView.TabIndex = 1;
+            this.memberDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.memberDataGridView_CellClick);
+            // 
+            // membership_typeComboBox
+            // 
+            this.membership_typeComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.membership_typeComboBox.FormattingEnabled = true;
+            this.membership_typeComboBox.Location = new System.Drawing.Point(161, 204);
+            this.membership_typeComboBox.Name = "membership_typeComboBox";
+            this.membership_typeComboBox.Size = new System.Drawing.Size(200, 21);
+            this.membership_typeComboBox.TabIndex = 5;
+            // 
+            // nameTextBox
+            // 
+            this.nameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.nameTextBox.Location = new System.Drawing.Point(161, 178);
+            this.nameTextBox.Name = "nameTextBox";
+            this.nameTextBox.Size = new System.Drawing.Size(200, 20);
+            this.nameTextBox.TabIndex = 7;
+            // 
+            // emailTextBox
+            // 
+            this.emailTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.emailTextBox.Location = new System.Drawing.Point(161, 232);
+            this.emailTextBox.Name = "emailTextBox";
+            this.emailTextBox.Size = new System.Drawing.Size(200, 20);
+            this.emailTextBox.TabIndex = 9;
+            // 
+            // phone_numberTextBox
+            // 
+            this.phone_numberTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.phone_numberTextBox.Location = new System.Drawing.Point(161, 258);
+            this.phone_numberTextBox.Name = "phone_numberTextBox";
+            this.phone_numberTextBox.Size = new System.Drawing.Size(200, 20);
+            this.phone_numberTextBox.TabIndex = 11;
+            // 
+            // addressTextBox
+            // 
+            this.addressTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.addressTextBox.Location = new System.Drawing.Point(161, 284);
+            this.addressTextBox.Name = "addressTextBox";
+            this.addressTextBox.Size = new System.Drawing.Size(200, 20);
+            this.addressTextBox.TabIndex = 13;
+            // 
+            // date_of_birthDateTimePicker
+            // 
+            this.date_of_birthDateTimePicker.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.date_of_birthDateTimePicker.Location = new System.Drawing.Point(161, 310);
+            this.date_of_birthDateTimePicker.Name = "date_of_birthDateTimePicker";
+            this.date_of_birthDateTimePicker.Size = new System.Drawing.Size(200, 20);
+            this.date_of_birthDateTimePicker.TabIndex = 15;
             // 
             // btnInsert
             // 
@@ -249,6 +249,7 @@
             this.btnSubmit.TabIndex = 21;
             this.btnSubmit.Text = "SUBMIT";
             this.btnSubmit.UseVisualStyleBackColor = true;
+            this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
             // 
             // btnCancel
             // 
@@ -260,17 +261,18 @@
             this.btnCancel.TabIndex = 22;
             this.btnCancel.Text = "CANCEL";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // label1
+            // label_time
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(393, 398);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(345, 16);
-            this.label1.TabIndex = 23;
-            this.label1.Text = " This record is last modified at YYYY-MM-DD, HH:mm:SS";
+            this.label_time.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label_time.AutoSize = true;
+            this.label_time.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_time.Location = new System.Drawing.Point(393, 398);
+            this.label_time.Name = "label_time";
+            this.label_time.Size = new System.Drawing.Size(345, 16);
+            this.label_time.TabIndex = 23;
+            this.label_time.Text = " This record is last modified at YYYY-MM-DD, HH:mm:SS";
             // 
             // rbMale
             // 
@@ -304,7 +306,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.rbFemale);
             this.Controls.Add(this.rbMale);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.label_time);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSubmit);
             this.Controls.Add(this.btnDelete);
@@ -346,7 +348,7 @@
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnSubmit;
         private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label_time;
         private System.Windows.Forms.RadioButton rbMale;
         private System.Windows.Forms.RadioButton rbFemale;
     }
