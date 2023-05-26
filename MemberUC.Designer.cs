@@ -157,6 +157,7 @@
             this.membership_typeComboBox.Name = "membership_typeComboBox";
             this.membership_typeComboBox.Size = new System.Drawing.Size(200, 21);
             this.membership_typeComboBox.TabIndex = 5;
+            this.membership_typeComboBox.SelectedIndexChanged += new System.EventHandler(this.membership_typeComboBox_SelectedIndexChanged);
             // 
             // nameTextBox
             // 
@@ -202,6 +203,7 @@
             this.date_of_birthDateTimePicker.Name = "date_of_birthDateTimePicker";
             this.date_of_birthDateTimePicker.Size = new System.Drawing.Size(200, 20);
             this.date_of_birthDateTimePicker.TabIndex = 15;
+            this.date_of_birthDateTimePicker.ValueChanged += new System.EventHandler(this.date_of_birthDateTimePicker_ValueChanged);
             // 
             // btnInsert
             // 

@@ -37,5 +37,17 @@ namespace MandhegParkingSystem
             panel1.Controls.Clear();
             panel1.Controls.Add(new MemberUC());
         }
+
+        private void btnVehicle_Click(object sender, EventArgs e)
+        {
+            panel1.Controls.Clear();
+            panel1.Controls.Add(new VehicleUC());
+        }
+
+        private void btnPayment_Click(object sender, EventArgs e)
+        {
+            panel1.Controls.Clear();
+            panel1.Controls.Add(new PaymentUC());
+        }
     }
 }

@@ -6,10 +6,14 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using System.Xml.Linq;
+using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 
 namespace MandhegParkingSystem
 {
@@ -19,12 +23,13 @@ namespace MandhegParkingSystem
         Control[] crudButtons;
         Control[] nonCrudButtons;
         CrudStateManager stateManager = new CrudStateManager();
+        int selectedMemberId;
         public MemberUC()
         {
             InitializeComponent();
             inputFields = new Control[]
             {
-                nameTextBox, emailTextBox, phone_numberTextBox, addressTextBox, rbMale, rbFemale, membership_typeComboBox
+                nameTextBox, emailTextBox, phone_numberTextBox, addressTextBox, rbMale, rbFemale, membership_typeComboBox, date_of_birthDateTimePicker
             };
             crudButtons = new Control[]
             {
@@ -38,29 +43,12 @@ namespace MandhegParkingSystem
 
         private void MemberUC_Load(object sender, EventArgs e)
         {
-            nonCrudButtons.Disable();
-            memberDataGridView.DataSource = Vars.db.Members.Select(m => new
-            {
-                Name = m.name,
-                Membership = m.Membership.name.ToString(),
-                Email = m.email,
-                Phone_Number = m.phone_number,
-                Address = m.address,
-                Date_of_Birth = m.date_of_birth,
-                Gender = m.gender,
-                ua = m.last_updated_at,
-                ca = m.created_at,
-                da = m.deleted_at,
-            }).ToList();
-            memberDataGridView.HideColumns(new string[]
-            {
-                "ua", "da", "ca"
-            });
-            memberDataGridView.Setup();
+            FillDGV();
             membership_typeComboBox.DataSource = Vars.db.Memberships.ToList();
             membership_typeComboBox.ValueMember = "id";
             membership_typeComboBox.DisplayMember = "name";
             membership_typeComboBox.Setup();
+            updateUI();
         }
 
         private void btnInsert_Click(object sender, EventArgs e)
@@ -77,30 +65,59 @@ namespace MandhegParkingSystem
                     inputFields.Clear();
                     crudButtons.Disable();
                     nonCrudButtons.Enable();
+                    inputFields.Enable();
+                    FillDGV();
                     break;
                 case (CrudState.Update):
                     crudButtons.Disable();
                     nonCrudButtons.Enable();
+                    inputFields.Enable();
+                    FillDGV();
                     break;
                 case (CrudState.Delete):
-                    if (MessageBox.Show("Are you sure ?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                    {
-                        MessageBox.Show("yes");
-                    }
+                    selectedMemberId = Convert.ToInt32(memberDataGridView.CurrentRow.Cells["id"].Value.ToString());
+                    inputFields.Clear();
+                    crudButtons.Disable();
+                    nonCrudButtons.Enable();
+                    inputFields.Enable();
                     break;
                 case (CrudState.Idle):
+                    inputFields.Disable();
                     inputFields.Clear();
                     crudButtons.Enable();
-                    nonCrudButtons.Enable();
+                    nonCrudButtons.Disable();
+                    FillDGV();
                     break;
             }
-            crudButtons.Disable();
+        }
+
+        private void FillDGV()
+        {
+            memberDataGridView.DataSource = Vars.db.Members.Where(m => m.deleted_at == null).Select(m => new
+            {
+                Id = m.id,
+                Name = m.name,
+                Membership = m.Membership.name.ToString(),
+                Email = m.email,
+                Phone_Number = m.phone_number,
+                Address = m.address,
+                Date_of_Birth = m.date_of_birth,
+                Gender = m.gender,
+                ua = m.last_updated_at,
+                ca = m.created_at,
+                da = m.deleted_at,
+            }).ToList();
+            memberDataGridView.HideColumns(new string[]
+            {
+                "ua", "da", "ca", "id"
+            });
+            memberDataGridView.Setup();
         }
 
         private void memberDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            stateManager.ToIdle();
             var row = memberDataGridView.CurrentRow;
+            selectedMemberId = Convert.ToInt32(row.Cells["id"].Value);
             nameTextBox.Text = row.Cells["name"].Value.ToString();
             emailTextBox.Text = row.Cells["email"].Value.ToString();
             phone_numberTextBox.Text = row.Cells["phone_number"].Value.ToString();
@@ -144,10 +161,64 @@ namespace MandhegParkingSystem
         }
 
         private void btnSubmit_Click(object sender, EventArgs e)
-        {
+        { 
+            switch(stateManager.instance) {
+                case CrudState.Insert:
+                    if (Guard.FailsAgainstNull(inputFields))
+                    {
+                        MessageBox.Show("Input field cannot be empty", "Erorr", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    Member newMember = new Member
+                    {
+                        name = nameTextBox.Text,
+                        membership_id = Convert.ToInt32(membership_typeComboBox.SelectedValue.ToString()),
+                        email = emailTextBox.Text,
+                        phone_number = phone_numberTextBox.Text,
+                        address = addressTextBox.Text,
+                        date_of_birth = date_of_birthDateTimePicker.Value,
+                        gender = (rbMale.Checked) ? "Male" : "Female",
+                        created_at = DateTime.Now,
+                        last_updated_at = null,
+                        deleted_at = null
+                    };
+                    Vars.db.Members.Add(newMember);
+                    Vars.db.SaveChanges();
+                    break;
+               case CrudState.Update:
+                    if (Guard.FailsAgainstNull(inputFields))
+                    {
+                        MessageBox.Show("Input field cannot be empty", "Erorr", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    var member = Vars.db.Members.Find(selectedMemberId);
+                    member.name = nameTextBox.Text;
+                    member.membership_id = Convert.ToInt32(membership_typeComboBox.SelectedValue);
+                    member.email = emailTextBox.Text;
+                    member.phone_number = phone_numberTextBox.Text;
+                    member.address = addressTextBox.Text;
+                    member.date_of_birth = date_of_birthDateTimePicker.Value.Date;
+                    member.gender = (rbMale.Checked) ? "Male" : "Female";
+                    member.last_updated_at = DateTime.Now;
+                    Vars.db.SaveChanges();
+                    label_time.Text = $"This record was last updated at {DateTime.Now.ToString(): ddd, yyyy MM dd, HH:mm:ss}";
+                    break;
+                case CrudState.Delete:
+                    var memberToDelete = Vars.db.Members.Find(selectedMemberId);
+                    memberToDelete.deleted_at = DateTime.Now;
+                    Vars.db.SaveChanges();
+                    break;
+            }
             stateManager.ToIdle();
             updateUI();
+        }
 
+        private void date_of_birthDateTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void membership_typeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
         }
     }
 }

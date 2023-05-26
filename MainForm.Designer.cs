@@ -101,6 +101,7 @@
             this.btnVehicle.TabIndex = 5;
             this.btnVehicle.Text = "Master Vehicle";
             this.btnVehicle.UseVisualStyleBackColor = true;
+            this.btnVehicle.Click += new System.EventHandler(this.btnVehicle_Click);
             // 
             // btnPayment
             // 
@@ -110,6 +111,7 @@
             this.btnPayment.TabIndex = 6;
             this.btnPayment.Text = "Parking Payment";
             this.btnPayment.UseVisualStyleBackColor = true;
+            this.btnPayment.Click += new System.EventHandler(this.btnPayment_Click);
             // 
             // panel1
             // 

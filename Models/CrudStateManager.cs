@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace MandhegParkingSystem.Models
 {
@@ -12,7 +13,7 @@ namespace MandhegParkingSystem.Models
 
         public void ToUpdate()
         {
-            instance = CrudState.Update;
+            this.instance = CrudState.Update;
         }
         public void ToInsert()
         {
